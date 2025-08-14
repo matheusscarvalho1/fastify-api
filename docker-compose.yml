@@ -1,0 +1,14 @@
+services:
+  # especifica quais serviços eu quero no docker - pode ser qualquer nome (db)
+  db:
+  # image é o que a gente copia la do dockerhub
+    image: postgres:17
+  # variaveis de ambiente
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: desafio
+    # quais são as portas que vai rodar esse serviço
+    # a porta 5432 do postgres seja redirecionada para a minha porta local 5432 (da minha máquina)
+    ports:
+      - "5432:5432"

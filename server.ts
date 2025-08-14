@@ -1,5 +1,15 @@
 import fastify from 'fastify'
-import crypto from 'node:crypto'
+import { fastifySwagger } from '@fastify/swagger'
+import { fastifySwaggerUi } from '@fastify/swagger-ui'
+
+import { validatorCompiler, serializerCompiler, type ZodTypeProvider, jsonSchemaTransform} from 'fastify-type-provider-zod'
+
+import { createCourseRoute } from './src/routes/courses/create-course.ts';
+import { getCourseByIdRoute } from './src/routes/courses/get-course-by-id.ts';
+import { deleteCourseRoute } from './src/routes/courses/delete-course.ts';
+import { getCoursesRoute } from './src/routes/courses/get-courses.ts';
+import { updateCourseRoute } from './src/routes/courses/update-course.ts';
+import scalarAPIReference from '@scalar/fastify-api-reference'
 
 const server = fastify({
   logger: {
@@ -11,80 +21,53 @@ const server = fastify({
       },
     },
     },
-});
+}).withTypeProvider<ZodTypeProvider>();
 
-const courses = [
-    { id: '1', title: 'Curso de Node.js'},
-    { id: '2', title: 'Curso de React'},
-    { id: '3', title: 'Curso de React Native'},
-]
+if(process.env.NODE_ENV === 'development') {
+  server.register(fastifySwagger, {
+  openapi:{
+    info: {
+      title: 'APIs Fastify',
+      version: '1.0.0',
+    }
+  },
+  transform: jsonSchemaTransform,
+})
+
+server.register(scalarAPIReference, {
+  routePrefix: '/docs',
+  configuration: {
+    theme: 'kepler',
+  }
+})
+
+// SWAGGER UI
+// server.register(fastifySwaggerUi, {
+//   routePrefix: '/docs'
+// })
+}
+
+
+
+
+// Serialização é uma forma de eu converter os dados de saida em um outro formato
+server.setSerializerCompiler(serializerCompiler)
+// Validação é uma checagem nos dados de entrada
+server.setValidatorCompiler(validatorCompiler)
+
+
 
 server.get('/', (request, reply) => {
 // Sempre retornar um objeto das minhas rotas
    return reply.send({ message: 'Hello World!' })
 }) 
 
-server.get('/courses', (request, reply) => {
-   return reply.send({ courses })
-})
-
-server.get('/courses/:id', (request, reply) => {
-    type ParamsType = {
-        id: string
-    }
-
-    const params = request.params as ParamsType
-    const courseId = params.id
-
-    const course = courses.find(course => course.id === courseId)
-
-    if (course) {
-        return { course }
-    } 
-   return reply.status(404).send()
-}) 
-
-server.post('/courses', (request, reply) => {
-
-     type BodyType = {
-        title: string
-    }
-
-    const courseId = crypto.randomUUID();
-
-    const body = request.body as BodyType
-    const courseTitle = body.title
-
-    if(!courseTitle) {
-        return reply.status(422).send({ message: "Título obrigatório" })
-    }
-
-    const existingCourse = courses.some(course => course.title === courseTitle);
-    if (existingCourse) {
-        return reply.status(400).send({ message: 'Curso já existe.' });
-    }
-
-    courses.push({ id: courseId, title: courseTitle })
-   
-    return reply.status(201).send({courseId})
-})
-
-server.delete('/courses/:id', (request, reply) => {
-     type ParamsType = {
-        id: string
-    }
-
-    const params = request.params as ParamsType
-    const courseId = params.id
-
-    const courseIndex = courses.findIndex(course => course.id === courseId)
-
-    if (courseIndex !== -1) {
-        const deletedCourse = courses.splice(courseIndex, 1)
-        return { deletedCourse };
-    } 
-   return reply.status(404).send({ message: 'Curso não encontrado.' })
-}) 
+server.register(createCourseRoute)
+server.register(getCoursesRoute)
+server.register(getCourseByIdRoute)
+server.register(updateCourseRoute)
+server.register(deleteCourseRoute)
+ 
 
 server.listen({ port: 3333 }).then(() => {
     console.log('HTTP server running!')
