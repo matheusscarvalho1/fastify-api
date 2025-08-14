@@ -5,37 +5,52 @@ import z from "zod"
 import { eq } from "drizzle-orm"
 
 export const updateCourseRoute: FastifyPluginAsyncZod = async (server) => {
-    server.put('/courses/:id', async (request, reply) => {
-     type ParamsType = {
-        id: string
+  server.put('/courses/:id', {
+    schema: {
+      tags: ['courses'],
+      summary: 'Update course by ID',
+      description: 'This route updates a course in the database',
+      params: z.object({
+        id: z.uuid(),
+      }),
+      body: z.object({
+        title: z.string().min(5, 'Título precisa ter 5 caracteres'),
+        description: z.string().min(5).optional(),
+      }),
+      response: {
+        200: z.object({
+          course: z.object({
+            id: z.uuid(),
+            title: z.string(),
+            description: z.string().nullable(),
+          }),
+          message: z.string(),
+        }),
+        404: z.object({
+          message: z.string(),
+        }),
+        422: z.object({
+          message: z.string(),
+        }),
+      },
+    },
+  }, async (request, reply) => {
+    const { id } = request.params
+    const { title, description } = request.body
+
+    const [updatedCourse] = await db
+      .update(courses)
+      .set({ title, description })
+      .where(eq(courses.id, id))
+      .returning()
+
+    if (!updatedCourse) {
+      return reply.status(404).send({ message: 'Curso não encontrado' })
     }
-      type BodyType = {
-        title: string,
-        description?: string
-    }
 
-    const params = request.params as ParamsType
-    const body = request.body as BodyType
-    
-    const courseId = params.id
-    const courseTitle = body.title
-
-    if(!courseTitle) {
-        return reply.status(422).send({ message: "Título obrigatório" })
-    }
-    
-
-    
-    const result = await db
-    .update(courses)
-    .set({ title: courseTitle })
-    .where(eq(courses.id, courseId))
-
-    if(!result){
-        return reply.status(404).send({ message: 'Curso não encontrado' })
-    }
-
-   return reply.status(200).send({ message: 'Curso atualizado' })
- }) 
-
+    return reply.status(200).send({
+      course: updatedCourse,
+      message: 'Curso atualizado',
+    })
+  })
 }

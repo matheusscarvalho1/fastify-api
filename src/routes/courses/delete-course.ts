@@ -5,23 +5,35 @@ import z from "zod"
 import { eq } from "drizzle-orm"
 
 export const deleteCourseRoute: FastifyPluginAsyncZod = async (server) => {
-    server.delete('/courses/:id', async (request, reply) => {
-     type ParamsType = {
-        id: string
-    }
+    server.delete('/courses/:id', {
+          schema: {
+            tags: ['courses'],
+            summary: 'Delete course by ID',
+            params: z.object({
+              id: z.uuid(),
+            }),
+            response: {
+           200: z.object({
+              message: z.string(),
+            }),
+            404: z.object({
+              message: z.string(),
+            }),
+            },
+          },
+        }, 
+        async (request, reply) => {
+        const { id } = request.params
 
-    const params = request.params as ParamsType
-    const courseId = params.id
+        const result = await db
+        .delete(courses)
+        .where(eq(courses.id, id))
 
-    const result = await db
-    .delete(courses)
-    .where(eq(courses.id, courseId))
+        if(!result){
+            return reply.status(404).send({ message: 'Curso não encontrado' })
+        }
 
-    if(!result){
-        return reply.status(404).send({ message: 'Curso não encontrado' })
-    }
-
-   return reply.status(200).send({ message: 'Curso apagado' })
+    return reply.status(200).send({ message: 'Curso apagado' })
  })
 
 }

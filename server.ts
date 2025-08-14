@@ -34,17 +34,17 @@ if(process.env.NODE_ENV === 'development') {
   transform: jsonSchemaTransform,
 })
 
-server.register(scalarAPIReference, {
-  routePrefix: '/docs',
-  configuration: {
-    theme: 'kepler',
-  }
-})
-
-// SWAGGER UI
-// server.register(fastifySwaggerUi, {
-//   routePrefix: '/docs'
+// server.register(scalarAPIReference, {
+//   routePrefix: '/docs',
+//   configuration: {
+//     theme: 'kepler',
+//   }
 // })
+
+//SWAGGER UI
+server.register(fastifySwaggerUi, {
+  routePrefix: '/docs'
+})
 }
 
 
