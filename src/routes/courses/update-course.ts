@@ -4,7 +4,7 @@ import { courses } from "../../database/schema"
 import z from "zod"
 import { eq } from "drizzle-orm"
 
-export const updateCourseRoute: FastifyPluginAsyncZod = async (server) => {
+export const updateCourse: FastifyPluginAsyncZod = async (server) => {
   server.put('/courses/:id', {
     schema: {
       tags: ['courses'],

@@ -3,7 +3,8 @@ import { db } from "../../database/client"
 import { courses } from "../../database/schema"
 import z from "zod"
 
-export const createCourseRoute: FastifyPluginAsyncZod = async (server) => {
+
+export const createCourse: FastifyPluginAsyncZod = async (server) => {
     server.post('/courses', {
   schema: {
     tags: ['courses'],

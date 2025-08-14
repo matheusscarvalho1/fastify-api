@@ -1,6 +1,6 @@
 GET http://localhost:3333/courses
 ###
-POST  http://localhost:3333/courses
+POST  http://localhost:3333/api/v1/courses
 Content-Type: application/json
 
 {
@@ -10,9 +10,9 @@ Content-Type: application/json
 GET http://localhost:3333/courses/dea53474-4a37-47ee-ba79-ce63372533e8
 
 ###
-DELETE http://localhost:3333/courses/dea53474-4a37-47ee-ba79-ce63372533e8
+DELETE http://localhost:3333/courses/a18044a7-4778-4e69-982f-23e58eef4c23
 ###
-PUT http://localhost:3333/courses/a08b1c14-48d2-4741-98ba-9b79142ab408
+PUT http://localhost:3333/courses/149690f0-e02c-4efa-8326-2a90af32bb73
 Content-Type: application/json
 
 {

@@ -4,7 +4,7 @@ import { courses } from "../../database/schema"
 import z from "zod"
 import { eq } from "drizzle-orm"
 
-export const getCourseByIdRoute: FastifyPluginAsyncZod = async (server) => {
+export const getCourseById: FastifyPluginAsyncZod = async (server) => {
   server.get(
     '/courses/:id',
     {

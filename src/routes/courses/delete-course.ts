@@ -4,7 +4,7 @@ import { courses } from "../../database/schema"
 import z from "zod"
 import { eq } from "drizzle-orm"
 
-export const deleteCourseRoute: FastifyPluginAsyncZod = async (server) => {
+export const deleteCourse: FastifyPluginAsyncZod = async (server) => {
     server.delete('/courses/:id', {
           schema: {
             tags: ['courses'],
