@@ -9,7 +9,7 @@ import {
   jsonSchemaTransform,
 } from "fastify-type-provider-zod";
 
-import { coursesRoutes } from "./src/routes/courses/routes.ts";
+import { coursesRoutes } from "./routes/courses/routes.ts";
 //import { createCourseRoute } from './src/routes/courses/create-course.ts';
 //import { getCourseByIdRoute } from './src/routes/courses/get-course-by-id.ts';
 //import { deleteCourseRoute } from './src/routes/courses/delete-course.ts';
@@ -74,6 +74,4 @@ server.register(coursesRoutes);
 // server.register(updateCourseRoute)
 // server.register(deleteCourseRoute)
 
-server.listen({ port: 3333 }).then(() => {
-  console.log("HTTP server running!");
-});
+export { server }

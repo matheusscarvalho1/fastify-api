@@ -28,8 +28,9 @@ export const deleteCourse: FastifyPluginAsyncZod = async (server) => {
         const result = await db
         .delete(courses)
         .where(eq(courses.id, id))
+        .returning()
 
-        if(!result){
+        if(result.length === 0){
             return reply.status(404).send({ message: 'Curso não encontrado' })
         }
 

@@ -1,10 +1,10 @@
-GET http://localhost:3333/courses
+GET http://localhost:3333/courses?orderBy=title
 ###
-POST  http://localhost:3333/api/v1/courses
+POST  http://localhost:3333/courses
 Content-Type: application/json
 
 {
-    "title": "Curso de React Native"
+    "title": "Curso de Angular"
 }
 ###
 GET http://localhost:3333/courses/dea53474-4a37-47ee-ba79-ce63372533e8

@@ -12,3 +12,5 @@ services:
     # a porta 5432 do postgres seja redirecionada para a minha porta local 5432 (da minha máquina)
     ports:
       - "5432:5432"
+    volumes:
+      - ./docker/setup.sql:/docker-entrypoint-initdb.d/init.sql
