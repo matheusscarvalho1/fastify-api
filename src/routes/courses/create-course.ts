@@ -31,10 +31,8 @@ export const createCourse: FastifyPluginAsyncZod = async (server) => {
     const result = await db
     .insert(courses)
     .values({ title: title, description: description})
-    // Com o returning ele retorna o valor inserido
     .returning()
    
-    // Sempre teremos um array retornado do banco de dados
     return reply.status(201).send({ courseId: result[0].id })
 })
 }

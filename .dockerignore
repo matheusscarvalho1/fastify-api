@@ -1,5 +1,3 @@
-# Arquivos que será ignorado na produção
-
 node_modules
 .git
 .env*

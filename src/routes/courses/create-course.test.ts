@@ -24,7 +24,3 @@ test('create a course', async () => {
  console.log(response.body)
  
 })
-
-// Testes end-to-end não será rodado na sua máquina para ver se esta tudo funcionando
-// Os testes rodam no ambiente de CI / Github Actions, la dentro o banco vai estar sempre zerado, o ambiente de CI sempre vai criar um banco do zero
-// Não tem problema o banco ficar rodando migrate toda vez que for executar os testes, ele fica salvo quais migrations ele já executou

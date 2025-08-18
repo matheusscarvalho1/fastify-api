@@ -19,7 +19,6 @@ export async function checkRequestJWT (request: FastifyRequest, reply: FastifyRe
 
 
   try {
-   // se ele não conseguir validar o token ele vai dar um erro, nesse caso usar try/catch
    const payload = jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
 
    request.user = payload
