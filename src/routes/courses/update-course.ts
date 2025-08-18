@@ -3,9 +3,15 @@ import { db } from "../../database/client"
 import { courses } from "../../database/schema"
 import z from "zod"
 import { eq } from "drizzle-orm"
+import { checkRequestJWT } from "../hooks/check-request-jwt"
+import { checkUserRole } from "../hooks/check-user-role"
 
 export const updateCourse: FastifyPluginAsyncZod = async (server) => {
   server.put('/courses/:id', {
+    preHandler: [
+            checkRequestJWT,
+            checkUserRole('manager'),
+          ],
     schema: {
       tags: ['courses'],
       summary: 'Update course by ID',

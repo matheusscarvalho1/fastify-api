@@ -4,12 +4,18 @@ import { courses, enrollments } from "../../database/schema"
 // ilike -> Do drizzle encontra dados não diferenciando letras maiusculas e minusculas
 import { ilike, asc, and, SQL, eq, count } from 'drizzle-orm'
 import z from "zod"
+import { checkRequestJWT } from "../hooks/check-request-jwt"
+import { checkUserRole } from "../hooks/check-user-role"
 
 // Search parms -> Usados em filtros, eles não são obrigatórios
 // Todo 'querystring' é opcional
 
 export const getCourses: FastifyPluginAsyncZod = async (server) => {
     server.get('/courses', {
+          preHandler: [
+              checkRequestJWT,
+              checkUserRole('manager'),
+            ],
           schema: {
             tags: ['courses'],
             summary: 'Get all courses',

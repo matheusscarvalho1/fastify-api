@@ -125,6 +125,17 @@ Tabela `users` (não utilizada nas rotas atuais, mas presente no schema):
 - `npm run db:generate` — Gera artefatos do Drizzle ORM
 - `npm run db:studio` — Abre o Drizzle Studio para visualização do banco
 
+
+## Banco de dados de teste
+
+- Lembrar de criar o banco de dados de teste com o script:
+``CREATE DATABASE desafio_test 
+WITH 
+OWNER = postgres 
+ENCODING = 'UTF8'
+TEMPLATE = template1  
+CONNECTION LIMIT = -1;``
+
 ## Licença
 
 Este projeto está licenciado sob a licença ISC.

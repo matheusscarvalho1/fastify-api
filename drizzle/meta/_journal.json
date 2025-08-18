@@ -43,6 +43,13 @@
       "when": 1755291201016,
       "tag": "0005_nifty_doorman",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1755543426812,
+      "tag": "0006_broken_bloodstrike",
+      "breakpoints": true
     }
   ]
 }

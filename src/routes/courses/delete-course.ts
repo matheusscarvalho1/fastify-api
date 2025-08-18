@@ -3,9 +3,15 @@ import { db } from "../../database/client"
 import { courses } from "../../database/schema"
 import z from "zod"
 import { eq } from "drizzle-orm"
+import { checkUserRole } from "../hooks/check-user-role"
+import { checkRequestJWT } from "../hooks/check-request-jwt"
 
 export const deleteCourse: FastifyPluginAsyncZod = async (server) => {
     server.delete('/courses/:id', {
+          preHandler: [
+              checkRequestJWT,
+              checkUserRole('manager'),
+            ],
           schema: {
             tags: ['courses'],
             summary: 'Delete course by ID',
