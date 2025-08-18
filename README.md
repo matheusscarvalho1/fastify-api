@@ -281,6 +281,9 @@ O seed cria:
 - Matrículas entre usuários e cursos
 - Senha padrão: `Teste@123`
 
-## Licença
+## 👨‍💻 Desenvolvido por
 
-Este projeto está licenciado sob a licença ISC.
+**Matheus Carvalho**
+
+- LinkedIn: [@matheusscarvalho](https://www.linkedin.com/in/matheusscarvalho/)
+- GitHub: [@matheusscarvalho1](https://github.com/matheusscarvalho1)
