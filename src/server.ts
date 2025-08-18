@@ -1,5 +1,7 @@
 import { server } from './app'
 
-server.listen({ port: 3333 }).then(() => {
+
+// Na maioria das plataformas de deploy gerenciado, precisam dessa instrução 'host: '0.0.0.0''
+server.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log("HTTP server running!");
 });
