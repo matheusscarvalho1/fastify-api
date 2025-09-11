@@ -8,8 +8,8 @@ import {
   jsonSchemaTransform,
 } from "fastify-type-provider-zod";
 
-import { coursesRoutes } from "./routes/courses/routes.ts";
-import { authRoutes } from "./routes/login/routes.ts";
+import { coursesRoutes } from "./routes/courses/routes";
+import { authRoutes } from "./routes/login/routes";
 
 
 import scalarAPIReference from "@scalar/fastify-api-reference";
@@ -37,12 +37,12 @@ if (process.env.NODE_ENV === "development") {
     transform: jsonSchemaTransform,
   });
 
-  server.register(scalarAPIReference, {
-    routePrefix: '/docs',
-    configuration: {
-      theme: 'kepler',
-    }
-  })
+  // server.register(scalarAPIReference, {
+  //   routePrefix: '/docs',
+  //   configuration: {
+  //     theme: 'kepler',
+  //   }
+  // })
 }
 
 server.setSerializerCompiler(serializerCompiler);
