@@ -136,6 +136,9 @@ ENCODING = 'UTF8'
 TEMPLATE = template1  
 CONNECTION LIMIT = -1;``
 
-## Licença
+## 👨‍💻 Desenvolvido por
 
-Este projeto está licenciado sob a licença ISC.
+**Matheus Carvalho**
+
+- LinkedIn: [@matheusscarvalho](https://www.linkedin.com/in/matheusscarvalho/)
+- GitHub: [@matheusscarvalho1](https://github.com/matheusscarvalho1)
