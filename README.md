@@ -55,7 +55,7 @@ Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.i
    npm run db:migrate
    ```
 
-   6. **Execute as seeds para popular o banco:**
+6. **Execute as seeds para popular o banco:**
 
    ```bash
    npm run db:seed
@@ -65,6 +65,14 @@ Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.i
    ```bash
    npm run dev
    ```
+
+8. **Veja os dados populados no banco:**
+   ```bash
+   npm run db:studio
+   ```
+
+- **Utilize um dos usuários que foram populados vendo pelo studio do drizzle para autenticar e obter um login no sistema**
+- OBS: A senha padrão é `Teste@123`.
 
 O servidor estará disponível em `http://localhost:3333`.
 
