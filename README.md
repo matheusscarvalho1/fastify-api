@@ -55,7 +55,13 @@ Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.i
    npm run db:migrate
    ```
 
-6. **Inicie o servidor em modo desenvolvimento:**
+   6. **Execute as seeds para popular o banco:**
+
+   ```bash
+   npm run db:seed
+   ```
+
+7. **Inicie o servidor em modo desenvolvimento:**
    ```bash
    npm run dev
    ```
