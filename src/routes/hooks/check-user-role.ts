@@ -7,7 +7,7 @@ export  function checkUserRole (role: 'student' | 'manager') {
   const user = getAuthenticatedUserFromRequest(request)
 
   if (user.role !== role) {
-    return reply.status(401).send()
+    return reply.status(403).send({ message: 'Forbidden: insufficient permissions' })
   }
 }
 }

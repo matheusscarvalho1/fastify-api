@@ -1,15 +1,17 @@
 GET http://localhost:3333/courses
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOTM2YzNhMy1jY2M4LTRlYWMtODYwNS1kNWRkOWE4MDVhYzMiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc1OTg5Nzk4MH0.7NDVzRIbNo5UHcUTsPb03OIpukjVFobIRXMdB2G3eDE
+
 ###
 POST  http://localhost:3333/courses
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDc1MjU2My05NGIyLTRhM2YtODMxMS01NTMzM2QxNzBmNTEiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc1NTU1NDMxNn0.Z6LeZ83rL9qjUE5Erd9A1Kj_vj2kd8uJmnv4fHHU1LU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjAxYWI1Yi0wZDI0LTRhY2EtOWY2Ny0zOTBjNjViZjNhYzYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1OTg5Nzg3M30.-NDK9qAKpmAJ-EtmfUrEqXEU_Yaec9ueRurFjX7tdE0
 
 {
-    "title": "Curso de Kubernets"
+    "title": "Curso de Go"
 }
 ###
 GET http://localhost:3333/courses/d4501252-179e-4687-8d58-76c3c070a5e1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YmEyYTM3MC1hZTg0LTRjMTAtYjhhZi01ZDA3NTFhODJkOGYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1NTU1MTA2MX0.QeGpnj-7Xp_IZNeLj6f_zWkATHFnxRMLYG8VnS8aykg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjAxYWI1Yi0wZDI0LTRhY2EtOWY2Ny0zOTBjNjViZjNhYzYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1OTg5Nzc4Mn0.2Rlq1vcmQE8jTtkjgEDYWiS6jJyHwCwj6FZazueKr9E
 
 ###
 DELETE http://localhost:3333/courses/a18044a7-4778-4e69-982f-23e58eef4c23
@@ -27,6 +29,6 @@ POST http://localhost:3333/sessions
 Content-Type: application/json
 
 {
-    "email": "Fabricia.Oliveira25@bol.com.br",
+    "email": "Ricardo_Albuquerque@yahoo.com",
     "password": "Teste@123"
 }

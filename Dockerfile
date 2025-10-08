@@ -25,3 +25,7 @@ COPY --from=builder /app/dist ./dist
 EXPOSE 3333
 
 CMD ["node", "dist/server.js"]
+
+# docker build -t meu-app .
+
+# docker run -p 3333:3333 meu-app

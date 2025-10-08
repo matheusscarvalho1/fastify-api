@@ -20,7 +20,7 @@ const server = fastify({
       target: "pino-pretty",
       options: {
         translateTime: "HH:MM:ss Z",
-        ignore: "pid,hostname",
+        ignore: "pid,hostname,reqId",
       },
     },
   },

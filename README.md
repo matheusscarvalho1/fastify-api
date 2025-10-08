@@ -1,6 +1,6 @@
 # Fastify Project - API de Cursos
 
-Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.io/) e [TypeScript](https://www.typescriptlang.org/), utilizando [Drizzle ORM](https://orm.drizzle.team/) para integração com banco de dados PostgreSQL. O objetivo principal é gerenciar cursos, permitindo criar, listar, buscar, atualizar e deletar cursos.
+Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.io/) e [TypeScript](https://www.typescriptlang.org/), utilizando [Drizzle ORM](https://orm.drizzle.team/) para integração com banco de dados PostgreSQL. O objetivo principal é gerenciar cursos, permitindo criar, listar, buscar, atualizar e deletar cursos, com autenticação JWT e controle de permissões por papel (role - student/manager).
 
 ## Funcionalidades
 
@@ -55,14 +55,77 @@ Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.i
    npm run db:migrate
    ```
 
-6. **Inicie o servidor em modo desenvolvimento:**
+6. **Execute as seeds para popular o banco:**
+
+   ```bash
+   npm run db:seed
+   ```
+
+7. **Inicie o servidor em modo desenvolvimento:**
    ```bash
    npm run dev
    ```
 
+8. **Veja os dados populados no banco:**
+   ```bash
+   npm run db:studio
+   ```
+
+**Utilize um dos usuários que foram populados vendo pelo studio do drizzle para autenticar e obter um login no sistema**
+
+- OBS: A senha padrão é `Teste@123`.
+
 O servidor estará disponível em `http://localhost:3333`.
 
 ## Rotas Principais
+
+### 🔐 Autenticação e Autorização
+
+O sistema utiliza JWT (JSON Web Token) para autenticação.
+
+Cada usuário possui um papel definido no token (``role``):
+
+#### Papel	& Permissões
+
+manager	- Pode criar, listar, buscar, atualizar e deletar cursos
+student	- Pode apenas visualizar cursos (`GET /courses` e `GET /courses/:id`)
+
+
+### 🔑 Obter Token JWT
+
+- Utilize um dos usuários que foram populados vendo pelo studio do drizzle para autenticar e obter um login no sistema, então utilize:
+`npm run db:studio`
+
+- Após isso ao abrir o drizzle studio, vá na tabela usuários e use o e-mail de um dos usuários como no exemplo abaixo para realizar a requisição.
+
+- **POST** `/sessions`
+- Body:
+
+```json
+{
+  "email": "Ricardo_Albuquerque@yahoo.com",
+  "password": "Teste@123"
+}
+```
+
+
+#### Resposta:
+```json
+{
+  "token": "<seu_token_jwt>"
+}
+```
+
+### 📤 Enviar Token em Requisições
+
+Inclua o token no cabeçalho da requisição:
+
+```json
+{
+  "Authorization": "<seu_token_jwt>"
+}
+
+```
 
 ### Criar Curso
 

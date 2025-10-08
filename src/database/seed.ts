@@ -52,9 +52,9 @@ async function seed() {
  ]).returning()
 
  const coursesInsert = await db.insert(courses).values([
-  { title: faker.lorem.words(8) },
-  { title: faker.lorem.words(8) },
-  { title: faker.lorem.words(8) },
+  { title: faker.lorem.words(8), description: faker.lorem.paragraph() },
+  { title: faker.lorem.words(8), description: faker.lorem.paragraph() },
+  { title: faker.lorem.words(8), description: faker.lorem.paragraph() },
  ]).returning()
 
  await db.insert(enrollments).values([
