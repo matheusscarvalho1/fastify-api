@@ -7,6 +7,12 @@ async function seed() {
  const passwordHash = await hash('Teste@123')
 
  const usersInsert = await db.insert(users).values([
+   {
+    name: faker.person.fullName(), 
+    email: faker.internet.email(),
+    password: passwordHash,
+    role: 'manager',
+   },
   {
     name: faker.person.fullName(), 
     email: faker.internet.email(),

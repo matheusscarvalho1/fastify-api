@@ -1,17 +1,16 @@
 GET http://localhost:3333/courses
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOTM2YzNhMy1jY2M4LTRlYWMtODYwNS1kNWRkOWE4MDVhYzMiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc1OTg5Nzk4MH0.7NDVzRIbNo5UHcUTsPb03OIpukjVFobIRXMdB2G3eDE
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OGZhN2M4My0xYTg1LTQ5ZDktODI5OS1hNjhkOGIwZGE1ZWQiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NjU5OTUwNX0.EGgse8z-GVdUpjmseP3FiyzdPuOmWCcs6R5I04N4zSw
 ###
 POST  http://localhost:3333/courses
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjAxYWI1Yi0wZDI0LTRhY2EtOWY2Ny0zOTBjNjViZjNhYzYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1OTg5Nzg3M30.-NDK9qAKpmAJ-EtmfUrEqXEU_Yaec9ueRurFjX7tdE0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OGZhN2M4My0xYTg1LTQ5ZDktODI5OS1hNjhkOGIwZGE1ZWQiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NjU5OTUwNX0.EGgse8z-GVdUpjmseP3FiyzdPuOmWCcs6R5I04N4zSw
 
 {
-    "title": "Curso de Go"
+    "title": "Curso de React"
 }
 ###
 GET http://localhost:3333/courses/d4501252-179e-4687-8d58-76c3c070a5e1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjAxYWI1Yi0wZDI0LTRhY2EtOWY2Ny0zOTBjNjViZjNhYzYiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1OTg5Nzc4Mn0.2Rlq1vcmQE8jTtkjgEDYWiS6jJyHwCwj6FZazueKr9E
+Authorization: eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MDkzNGEyNC00N2Q1LTQ3NzYtODY0ZC0xN2YxNjYyNTUxMjIiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc2NjU5OTM5NH0.GYpTy1kYwEiutTDqr7lSgkcJYk2R89UfunUsZMkoC8U
 
 ###
 DELETE http://localhost:3333/courses/a18044a7-4778-4e69-982f-23e58eef4c23
@@ -29,6 +28,6 @@ POST http://localhost:3333/sessions
 Content-Type: application/json
 
 {
-    "email": "Ricardo_Albuquerque@yahoo.com",
+    "email": "Paulo.Martins@hotmail.com",
     "password": "Teste@123"
 }

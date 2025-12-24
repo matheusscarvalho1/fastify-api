@@ -13,6 +13,7 @@ import { authRoutes } from "./routes/login/routes";
 
 
 import scalarAPIReference from "@scalar/fastify-api-reference";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 
 const server = fastify({
   logger: {
@@ -35,6 +36,16 @@ if (process.env.NODE_ENV === "development") {
       },
     },
     transform: jsonSchemaTransform,
+  });
+
+  server.register(fastifySwaggerUi, {
+    routePrefix: "/docs",
+    uiConfig: {
+      docExpansion: "full",
+      deepLinking: false,
+    },
+    staticCSP: true,
+    transformStaticCSP: (header) => header,
   });
 
   // server.register(scalarAPIReference, {
