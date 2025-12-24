@@ -34,48 +34,71 @@ Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.i
    npm install
    ```
 
-3. **Configure o banco de dados:**
-
-   - O projeto utiliza Docker para o banco PostgreSQL. Inicie o serviço com:
-     ```bash
-     docker-compose up -d
-     ```
-   - O banco será iniciado na porta padrão `5432` com usuário e senha `postgres` e banco `desafio`.
-
-4. **Configure as variáveis de ambiente:**
+3. **Configure as variáveis de ambiente:**
 
    - Crie um arquivo `.env` na raiz do projeto com a string de conexão do banco:
-     ```env
-     DATABASE_URL=postgres://postgres:postgres@localhost:5432/desafio
-     ```
+  
+        ```env
+        # Ambiente da aplicação (development, test ou production)
+        NODE_ENV="development"
+        
+        # Formato: postgresql://[usuario]:[senha]@[host]:[porta]/[nome_do_banco]
+        DATABASE_URL="postgres://postgres:postgres@localhost:5432/desafio"
 
-5. **Execute as migrações:**
+        # Chave secreta para assinatura de tokens JWT (pode ser qualquer string longa e segura)
+        JWT_SECRET="secret"
+        ```
+   
 
-   ```bash
-   npm run db:migrate
-   ```
+4. **Configure o banco de dados:**
 
-6. **Execute as seeds para popular o banco:**
+   - O projeto utiliza Docker para o banco PostgreSQL. Inicie o serviço com:
+   
+        ```bash
+        docker-compose up -d
+        ```
+   - O banco será iniciado na porta padrão `5432` com usuário e senha `postgres` e banco `desafio`.
+  
+ 5. **Execute para criar os arquivos de migração do banco de dados:**
 
-   ```bash
-   npm run db:seed
-   ```
+      ```bash
+      npm run db:generate
+      ```
+   - 
 
-7. **Inicie o servidor em modo desenvolvimento:**
-   ```bash
-   npm run dev
-   ```
+6. **Execute as migrações para criar a estrutura do banco de dados baseado no que foi generado no comando generate, anteriormente:**
 
-8. **Veja os dados populados no banco:**
-   ```bash
-   npm run db:studio
-   ```
+      ```bash
+      npm run db:migrate
+      ```
+
+7. **Execute as seeds para popular o banco:**
+
+      ```bash
+      npm run db:seed
+      ```
+
+8. **Inicie o servidor em modo desenvolvimento:**
+      ```bash
+      npm run dev
+      ```
+
+9. **Veja os dados populados no banco:**
+      ```bash
+      npm run db:studio
+      ```
 
 **Utilize um dos usuários que foram populados vendo pelo studio do drizzle para autenticar e obter um login no sistema**
 
 - OBS: A senha padrão é `Teste@123`.
 
 O servidor estará disponível em `http://localhost:3333`.
+
+## Documentação da API
+
+Durante o desenvolvimento, a documentação Swagger estará disponível em:
+
+- `http://localhost:3333/docs`
 
 ## Rotas Principais
 
@@ -161,12 +184,6 @@ Inclua o token no cabeçalho da requisição:
 
 - **DELETE** `/courses/:id`
 
-## Documentação da API
-
-Durante o desenvolvimento, a documentação Swagger estará disponível em:
-
-- `http://localhost:3333/docs`
-
 ## Estrutura do Banco de Dados
 
 Tabela `courses`:
@@ -175,19 +192,28 @@ Tabela `courses`:
 - `title` (string, único, obrigatório)
 - `description` (string, opcional)
 
-Tabela `users` (não utilizada nas rotas atuais, mas presente no schema):
+Tabela `users`:
 
 - `id` (UUID, PK)
 - `name` (string, obrigatório)
 - `email` (string, único, obrigatório)
+- `password` (string, obrigatório)
+- `role` (enum `user_role`, obrigatório, padrão: `student` onde user_role: `student | manager`)
+
+Tabela `enrollments`:
+
+- `id` (UUID, PK)
+- `userId` (UUID, FK -> `users.id`, obrigatório)
+- `userId` (UUID, FK -> `courses.id`, obrigatório)
+-  `createdAt` (timestamp com timezone, obrigatório, padrão: now() )
 
 ## Scripts Disponíveis
 
 - `npm run dev` — Inicia o servidor em modo desenvolvimento
-- `npm run db:migrate` — Executa as migrações do banco de dados
-- `npm run db:generate` — Gera artefatos do Drizzle ORM
-- `npm run db:studio` — Abre o Drizzle Studio para visualização do banco
-
+- `npm run db:generate` — Gera os arquivos SQL do Drizzle ORM com base nas alterações feitas nas tabelas no arquivo `src/database/schema.ts`.
+- `npm run db:migrate` — Executa as migrations SQL e aplica as alterações no banco de dados.
+- `npm run db:seed` — Popula o banco de dados com dados iniciais baseado no arquivo `src/database/seed.ts`.
+- `npm run db:studio` — Abre o Drizzle Studio para visualização e inspeção do banco de dados.
 
 ## 👨‍💻 Desenvolvido por
 
