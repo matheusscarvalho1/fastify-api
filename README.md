@@ -57,14 +57,13 @@ Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.i
         ```bash
         docker-compose up -d
         ```
-   - O banco será iniciado na porta padrão `5432` com usuário e senha `postgres` e banco `desafio`.
+   - O banco será iniciado na porta padrão `5432` com usuário e senha `postgres` e banco `desafio_dev`.
   
  5. **Execute para criar os arquivos de migração do banco de dados:**
 
       ```bash
       npm run db:generate
       ```
-   - 
 
 6. **Execute as migrações para criar a estrutura do banco de dados baseado no que foi generado no comando generate, anteriormente:**
 
@@ -207,6 +206,48 @@ Tabela `enrollments`:
 - `courseId` (UUID, FK -> `courses.id`, obrigatório)
 -  `createdAt` (timestamp com timezone, obrigatório, padrão: now() )
 
+  ## Testes automatizados
+- Este projeto utiliza Vitest para a execução de testes de integração, garantindo que as rotas e regras de negócio funcionem corretamente. Para garantir a integridade dos dados, os testes em 2025 são executados em um ambiente PostgreSQL totalmente isolado.
+
+### 🛠️ Configuração do Ambiente de Testes
+
+1. Banco de Dados no Docker (setup.sql)
+   - O projeto utiliza um script de inicialização automática no Docker. O arquivo localizado em ./docker/setup.sql garante que o ambiente suba com dois bancos independentes:
+         ```
+         -- Criado automaticamente ao subir o container
+         CREATE DATABASE desafio_test;
+         ```
+2. Arquivo de configuração `.env.test`
+   - É necessário criar um arquivo `.env.test` na raiz do projeto para instruir o Vitest a utilizar as credenciais de teste. Sem este arquivo, os testes podem falhar por falta de conexão ou por tentar acessar o banco de desenvolvimento:
+   
+      ```
+      # Define o ambiente como teste
+      NODE_ENV="test"
+      
+      # URL de conexão apontando especificamente para o banco de testes criado via setup.sql
+      DATABASE_DOCKER_URL="postgres://postgres:postgres@localhost:5432/desafio_test"
+      
+      # Segredo JWT exclusivo para o ambiente de testes
+      JWT_SECRET="secret"
+      ```
+   - Dessa forma, o banco desafio_dev fica reservado para uso manual (via Drizzle Studio ou Postman), enquanto o desafio_test é utilizado exclusivamente pela suíte de testes.
+  
+   ### Explicação dos Scripts de Teste
+   - A automação no `package.json` já garante que o banco de dados esteja pronto antes da execução dos testes:
+     
+      -    `npm run pretest`:    
+      -       "pretest": "dotenv -e .env.test drizzle-kit push"
+         -    Este comando é acionado automaticamente sempre que você executa `npm run test`, ele utiliza o `dotenv -e .env.test` para carregar as credencias do banco de teste e o `drizzle-kit push` para sincronizar instantaneamente o seu schema (`src/database/schema.ts`) com o banco `desafio_test`. Isso elimina a necessidade de rodar migrações manuais para os testes, garantindo que as tabelas existam e estejam atualizadas.
+           
+      -    `npm run test`:
+      -        "test": "dotenv -e .env.test vitest run"
+        -   Este é o comando principal que inicia o executor de testes Vitest. Ele força a aplicação a ler o arquivo `.env.test`, garantindo que tanto o servidor Fastify quanto as factories de dados (como a criação de usuários e cursos) se conectem excluisvamente ao banco de testes, mantendo o seu bancode desenvolveimento(`desafio_dev`) intacto.
+       
+   ### Como executar os testes
+      1. Certifique-se de que o container Docker está rodando: `docker-compose up -d`;
+      2. Garante que o arquivo `.env.test` foi criado corretamente na raiz do projeto.
+      3. No terminal, execute apenas:```npm run test```  
+
 ## Scripts Disponíveis
 
 - `npm run dev` — Inicia o servidor em modo desenvolvimento
@@ -214,6 +255,8 @@ Tabela `enrollments`:
 - `npm run db:migrate` — Executa as migrations SQL e aplica as alterações no banco de dados.
 - `npm run db:seed` — Popula o banco de dados com dados iniciais baseado no arquivo `src/database/seed.ts`.
 - `npm run db:studio` — Abre o Drizzle Studio para visualização e inspeção do banco de dados.
+- `npm run pretest` — Prepara o banco de testes sincronizando o schema.
+- `npm run test` — Executa todos os testes de integração de forma sequencial utilizando o ambiente de testes.
 
 ## 👨‍💻 Desenvolvido por
 
