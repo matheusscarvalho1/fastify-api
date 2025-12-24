@@ -1,5 +1,5 @@
 GET http://localhost:3333/courses
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OGZhN2M4My0xYTg1LTQ5ZDktODI5OS1hNjhkOGIwZGE1ZWQiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NjU5OTUwNX0.EGgse8z-GVdUpjmseP3FiyzdPuOmWCcs6R5I04N4zSw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MzRkNGEwOS05NDRlLTRiMGQtYTk1Yi0wNGE4ZmE3OWNhMGEiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc2NjYwNTAwOX0.AUFC9TMNRo3pAGsTSybb4KEbvmBrQSkjm9Xswf-ifSw
 ###
 POST  http://localhost:3333/courses
 Content-Type: application/json
@@ -28,6 +28,6 @@ POST http://localhost:3333/sessions
 Content-Type: application/json
 
 {
-    "email": "Paulo.Martins@hotmail.com",
+    "email": "test@email.com",
     "password": "Teste@123"
 }

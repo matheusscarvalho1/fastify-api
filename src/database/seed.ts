@@ -2,14 +2,15 @@ import { db } from "./client"
 import { courses, enrollments, users } from "./schema"
 import { hash } from 'argon2'
 import { fakerPT_BR as faker } from '@faker-js/faker'
+import { email } from "zod"
 
 async function seed() {
  const passwordHash = await hash('Teste@123')
 
  const usersInsert = await db.insert(users).values([
    {
-    name: faker.person.fullName(), 
-    email: faker.internet.email(),
+    name: 'test', 
+    email: 'test@email.com',
     password: passwordHash,
     role: 'manager',
    },
