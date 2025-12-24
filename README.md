@@ -1,5 +1,9 @@
 # Fastify Project - API de Cursos
 
+![Fastify](img.shields.io)
+![TypeScript](img.shields.io)
+![Drizzle](img.shields.io)
+
 Este projeto é uma API RESTful desenvolvida com [Fastify](https://www.fastify.io/) e [TypeScript](https://www.typescriptlang.org/), utilizando [Drizzle ORM](https://orm.drizzle.team/) para integração com banco de dados PostgreSQL. O objetivo principal é gerenciar cursos, permitindo criar, listar, buscar, atualizar e deletar cursos, com autenticação JWT e controle de permissões por papel (role - student/manager).
 
 ## Funcionalidades
@@ -204,7 +208,7 @@ Tabela `enrollments`:
 
 - `id` (UUID, PK)
 - `userId` (UUID, FK -> `users.id`, obrigatório)
-- `userId` (UUID, FK -> `courses.id`, obrigatório)
+- `courseId` (UUID, FK -> `courses.id`, obrigatório)
 -  `createdAt` (timestamp com timezone, obrigatório, padrão: now() )
 
 ## Scripts Disponíveis
